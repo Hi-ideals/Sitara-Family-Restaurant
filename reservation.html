@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reserve a Table | Sitara Family Restaurant</title>
+  <meta name="description" content="Book your table at Sitara Family Restaurant in Bidar. Choose your date, time and party size and we'll confirm by phone." />
+  <meta name="keywords" content="Sitara Family Restaurant booking, table reservation Bidar, private dining hall booking Bidar" />
+  <link rel="canonical" href="reservation.html" />
+  <link rel="icon" href="https://picsum.photos/seed/sitaralogo/64/64" type="image/png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#fdf6ea', 'cream-panel': '#fbeedb', maroon: '#5c1a1b', 'maroon-soft': '#7a2b28',
+            terracotta: '#c1502e', 'terracotta-deep': '#a23f23', gold: '#d4a24c', ink: '#2b1b12', 'ink-soft': '#5a463a',
+          },
+          fontFamily: {
+            display: ['Fraunces', 'serif'], body: ['Work Sans', 'sans-serif'], mono: ['DM Mono', 'monospace'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-cream text-ink font-body antialiased">
+
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:bg-terracotta focus:text-cream focus:px-4 focus:py-2 focus:rounded-full z-[100]">Skip to main content</a>
+
+  <header id="site-header"></header>
+
+  <main id="main-content">
+
+    <section class="relative h-[42vh] min-h-[320px] w-full overflow-hidden flex items-center justify-center text-center" aria-label="Reservation page hero">
+      <img id="page-hero-bg" src="" alt="Set table ready for guests" class="absolute inset-0 w-full h-full object-cover img-skeleton" />
+      <div class="absolute inset-0 bg-gradient-to-b from-ink/75 via-ink/55 to-cream"></div>
+      <div class="relative z-10 px-6">
+        <p class="font-mono-label text-xs uppercase text-terracotta mb-4 reveal">Book Ahead</p>
+        <h1 id="page-title" class="font-display text-cream text-4xl sm:text-6xl mb-4 reveal reveal-delay-1"></h1>
+        <p id="page-subtitle" class="text-cream/85 max-w-lg mx-auto reveal reveal-delay-2"></p>
+      </div>
+    </section>
+
+    <section class="py-20 px-5 sm:px-8" aria-label="Reservation form">
+      <div class="max-w-5xl mx-auto grid lg:grid-cols-[1fr_1.2fr] gap-12">
+
+        <!-- Side info panel -->
+        <aside class="reveal glass rounded-2xl p-8 h-fit">
+          <h2 class="font-display text-2xl mb-6">Good to Know</h2>
+          <ul class="space-y-5 text-sm text-ink-soft leading-relaxed">
+            <li class="flex gap-3">
+              <svg class="w-5 h-5 text-terracotta shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>We hold reserved tables for 15 minutes past your booking time.</span>
+            </li>
+            <li class="flex gap-3">
+              <svg class="w-5 h-5 text-terracotta shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20.5c-1.5-3-3-4.5-5-4.5s-3.5 1.5-5 4.5M12 12a4 4 0 100-8 4 4 0 000 8z"/></svg>
+              <span id="reservation-note"></span>
+            </li>
+            <li class="flex gap-3">
+              <svg class="w-5 h-5 text-terracotta shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="1.6" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5c0 9 7 16 16 16l3-5-6-2-2 2c-2-1-4-3-5-5l2-2-2-6z"/></svg>
+              <span>Prefer to call? Reach us at <a id="reservation-phone-link" href="#" class="text-terracotta underline-grow"></a>.</span>
+            </li>
+          </ul>
+          <div class="mt-8 rounded-xl overflow-hidden aspect-[4/3]">
+            <img src="assets/images/slider11.png" alt="Cozy table setting at Sitara Family Restaurant" class="w-full h-full object-cover img-skeleton" loading="lazy" />
+          </div>
+        </aside>
+
+        <!-- Form -->
+        <form id="reservation-form" class="reveal reveal-delay-1 glass-dark rounded-2xl p-8 sm:p-10 space-y-6" novalidate>
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div>
+              <label for="res-name" class="block text-xs font-mono-label uppercase text-cream/60 mb-2">Full Name *</label>
+              <input id="res-name" name="name" type="text" required class="input-field w-full rounded-lg px-4 py-3" placeholder="Your name" />
+            </div>
+            <div>
+              <label for="res-phone" class="block text-xs font-mono-label uppercase text-cream/60 mb-2">Phone Number *</label>
+              <input id="res-phone" name="phone" type="tel" required class="input-field w-full rounded-lg px-4 py-3" placeholder="+91 00000 00000" />
+            </div>
+          </div>
+
+          <div>
+            <label for="res-email" class="block text-xs font-mono-label uppercase text-cream/60 mb-2">Email Address *</label>
+            <input id="res-email" name="email" type="email" required class="input-field w-full rounded-lg px-4 py-3" placeholder="you@example.com" />
+          </div>
+
+          <div class="grid sm:grid-cols-3 gap-6">
+            <div>
+              <label for="res-date" class="block text-xs font-mono-label uppercase text-cream/60 mb-2">Date *</label>
+              <input id="res-date" name="date" type="date" required class="input-field w-full rounded-lg px-4 py-3" />
+            </div>
+            <div>
+              <label for="res-time" class="block text-xs font-mono-label uppercase text-cream/60 mb-2">Time *</label>
+              <select id="res-time" name="time" required class="input-field w-full rounded-lg px-4 py-3"></select>
+            </div>
+            <div>
+              <label for="res-guests" class="block text-xs font-mono-label uppercase text-cream/60 mb-2">Guests *</label>
+              <select id="res-guests" name="guests" required class="input-field w-full rounded-lg px-4 py-3"></select>
+            </div>
+          </div>
+
+          <div>
+            <label for="res-occasion" class="block text-xs font-mono-label uppercase text-cream/60 mb-2">Occasion</label>
+            <select id="res-occasion" name="occasion" class="input-field w-full rounded-lg px-4 py-3"></select>
+          </div>
+
+          <div>
+            <label for="res-requests" class="block text-xs font-mono-label uppercase text-cream/60 mb-2">Special Requests</label>
+            <textarea id="res-requests" name="requests" rows="3" class="input-field w-full rounded-lg px-4 py-3 resize-none" placeholder="Allergies, seating preference, anything we should know..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-primary w-full sm:w-auto px-10 py-3.5 rounded-full font-mono-label text-xs uppercase tracking-widest">Confirm Reservation Request</button>
+
+          <p id="reservation-success" class="hidden text-gold text-sm font-mono-label" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="site-footer"></footer>
+
+  <script src="content.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const S = window.SITE;
+      const R = S.reservation;
+      const C = S.contact;
+
+      document.getElementById("page-hero-bg").src = R.heroImage;
+      document.getElementById("page-title").textContent = R.pageTitle;
+      document.getElementById("page-subtitle").textContent = R.pageSubtitle;
+      document.getElementById("reservation-note").textContent = R.note;
+      const phoneLink = document.getElementById("reservation-phone-link");
+      phoneLink.textContent = C.phone;
+      phoneLink.href = "tel:" + C.phone.replace(/\s+/g, "");
+
+      /* Populate time slots */
+      const timeSelect = document.getElementById("res-time");
+      timeSelect.innerHTML =
+        `<option value="" disabled selected>Select a time</option>` +
+        R.timeSlots.map((t) => `<option value="${t}">${t}</option>`).join("");
+
+      /* Populate guest counts */
+      const guestSelect = document.getElementById("res-guests");
+      guestSelect.innerHTML =
+        `<option value="" disabled selected>Select guests</option>` +
+        R.guestOptions.map((g) => `<option value="${g}">${g} ${g === 1 ? "Guest" : "Guests"}</option>`).join("");
+
+      /* Populate occasions */
+      const occasionSelect = document.getElementById("res-occasion");
+      occasionSelect.innerHTML = R.occasions.map((o) => `<option value="${o}">${o}</option>`).join("");
+
+      /* Restrict date picker to today and onward */
+      const dateInput = document.getElementById("res-date");
+      const today = new Date().toISOString().split("T")[0];
+      dateInput.setAttribute("min", today);
+
+      /* Form submit handling (no backend — demo confirmation only) */
+      const form = document.getElementById("reservation-form");
+      const successMsg = document.getElementById("reservation-success");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (!form.checkValidity()) {
+          form.reportValidity();
+          return;
+        }
+        successMsg.textContent = R.confirmationMessage;
+        successMsg.classList.remove("hidden");
+        form.reset();
+        successMsg.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,443 @@
+/* =========================================================================
+   style.css — Ember & Saffron
+   Design tokens, custom components and animations layered on top of
+   Tailwind's utility classes (loaded via CDN in each HTML page).
+
+   Palette + structure are deliberately built to follow the warm, classic
+   "family multi-cuisine restaurant" template shape — light backgrounds,
+   a deep maroon header/footer, terracotta + gold accents, image-slider
+   hero, cuisine-type cards, an on-page menu preview, and a gallery strip.
+   ========================================================================= */
+
+:root {
+  /* ---- Color tokens -------------------------------------------------- */
+  --color-cream: #fdf6ea;          /* primary light background */
+  --color-cream-panel: #fbeedb;    /* secondary panel background */
+  --color-maroon: #5c1a1b;         /* header / footer / deep accent */
+  --color-maroon-soft: #7a2b28;    /* hover state of maroon */
+  --color-terracotta: #c1502e;     /* primary CTA accent */
+  --color-terracotta-deep: #a23f23;
+  --color-gold: #d4a24c;           /* secondary accent, hairlines */
+  --color-ink: #2b1b12;            /* primary dark text */
+  --color-ink-soft: #5a463a;       /* secondary muted text */
+
+  /* ---- Type tokens ----------------------------------------------------*/
+  --font-display: "Fraunces", serif;
+  --font-body: "Work Sans", sans-serif;
+  --font-mono: "DM Mono", monospace;
+
+  /* ---- Motion ---------------------------------------------------------*/
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+}
+
+.font-mono-label {
+  font-family: var(--font-mono);
+  letter-spacing: 0.12em;
+}
+
+/* =========================================================================
+   Header
+   ========================================================================= */
+
+#site-header {
+  transition: background-color 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out),
+    padding 0.3s var(--ease-out);
+}
+
+#site-header.header-scrolled {
+  background-color: var(--color-maroon);
+  box-shadow: 0 8px 30px -10px rgba(43, 27, 18, 0.35);
+}
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0%;
+  height: 2px;
+  background-color: var(--color-gold);
+  transition: width 0.3s var(--ease-out);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* =========================================================================
+   Glassmorphism utility (used sparingly, over photo panels)
+   ========================================================================= */
+
+.glass {
+  background: rgba(253, 246, 234, 0.85);
+  border: 1px solid rgba(212, 162, 76, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.glass-dark {
+  background: rgba(92, 26, 27, 0.92);
+  border: 1px solid rgba(212, 162, 76, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--color-cream);
+}
+
+/* =========================================================================
+   Hero image slider (signature motif — crossfading slides, like a
+   traditional restaurant banner carousel)
+   ========================================================================= */
+
+.hero-slider {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1.4s ease-in-out;
+}
+
+.hero-slide.active {
+  opacity: 1;
+}
+
+.hero-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(253, 246, 234, 0.4);
+  transition: background-color 0.3s var(--ease-out), width 0.3s var(--ease-out);
+}
+
+.hero-dot.active {
+  background-color: var(--color-gold);
+  width: 22px;
+  border-radius: 6px;
+}
+
+/* =========================================================================
+   Flame / spice divider (signature section marker, replaces generic 01/02/03)
+   ========================================================================= */
+
+.flame-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.flame-divider svg {
+  width: 18px;
+  height: 18px;
+  color: var(--color-terracotta);
+}
+
+.flame-divider .line {
+  height: 1px;
+  width: 48px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+/* =========================================================================
+   Scroll reveal animations
+   ========================================================================= */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.32s; }
+
+/* =========================================================================
+   Cards & hover effects
+   ========================================================================= */
+
+.dish-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
+}
+
+.dish-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px -20px rgba(43, 27, 18, 0.35);
+}
+
+.dish-card .dish-image {
+  transition: transform 0.6s var(--ease-out);
+}
+
+.dish-card:hover .dish-image {
+  transform: scale(1.08);
+}
+
+.dish-card .dish-overlay {
+  background: linear-gradient(to top, rgba(43, 27, 18, 0.85) 0%, rgba(43, 27, 18, 0.25) 55%, transparent 100%);
+}
+
+.cuisine-card {
+  transition: transform 0.4s var(--ease-out), border-color 0.4s var(--ease-out);
+}
+
+.cuisine-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-terracotta);
+}
+
+.underline-grow {
+  position: relative;
+  display: inline-block;
+}
+
+.underline-grow::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  height: 1px;
+  width: 0;
+  background-color: var(--color-terracotta);
+  transition: width 0.35s var(--ease-out);
+}
+
+.underline-grow:hover::after {
+  width: 100%;
+}
+
+/* =========================================================================
+   Buttons
+   ========================================================================= */
+
+.btn-primary {
+  background-color: var(--color-terracotta);
+  color: var(--color-cream);
+  transition: background-color 0.3s var(--ease-out), transform 0.3s var(--ease-out);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-terracotta-deep);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  border: 1px solid rgba(43, 27, 18, 0.25);
+  color: var(--color-ink);
+  transition: border-color 0.3s var(--ease-out), background-color 0.3s var(--ease-out);
+}
+
+.btn-outline:hover {
+  border-color: var(--color-terracotta);
+  background-color: rgba(193, 80, 46, 0.08);
+}
+
+.btn-outline-light {
+  border: 1px solid rgba(253, 246, 234, 0.5);
+  color: var(--color-cream);
+  transition: border-color 0.3s var(--ease-out), background-color 0.3s var(--ease-out);
+}
+
+.btn-outline-light:hover {
+  border-color: var(--color-gold);
+  background-color: rgba(212, 162, 76, 0.12);
+}
+
+/* =========================================================================
+   Mobile nav drawer
+   ========================================================================= */
+
+#mobile-menu {
+  transform: translateX(100%);
+  transition: transform 0.45s var(--ease-out);
+}
+
+#mobile-menu.open {
+  transform: translateX(0);
+}
+
+/* =========================================================================
+   Testimonial carousel
+   ========================================================================= */
+
+.testimonial-track {
+  display: flex;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.testimonial-slide {
+  flex: 0 0 100%;
+}
+
+/* =========================================================================
+   Gallery / lightbox
+   ========================================================================= */
+
+.gallery-item {
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.gallery-item img {
+  transition: transform 0.5s var(--ease-out), filter 0.5s var(--ease-out);
+}
+
+.gallery-item:hover img {
+  transform: scale(1.06);
+}
+
+#lightbox {
+  transition: opacity 0.3s var(--ease-out);
+}
+
+#lightbox.hidden-lightbox {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* =========================================================================
+   Form elements
+   ========================================================================= */
+
+.input-field {
+  background-color: rgba(253, 246, 234, 0.7);
+  border: 1px solid rgba(43, 27, 18, 0.18);
+  color: var(--color-ink);
+  transition: border-color 0.3s var(--ease-out), background-color 0.3s var(--ease-out);
+}
+
+.input-field::placeholder {
+  color: rgba(43, 27, 18, 0.4);
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--color-terracotta);
+  background-color: #fff;
+}
+
+.input-field-dark {
+  background-color: rgba(253, 246, 234, 0.08);
+  border: 1px solid rgba(253, 246, 234, 0.25);
+  color: var(--color-cream);
+}
+
+.input-field-dark::placeholder {
+  color: rgba(253, 246, 234, 0.45);
+}
+
+.input-field-dark:focus {
+  outline: none;
+  border-color: var(--color-gold);
+  background-color: rgba(253, 246, 234, 0.14);
+}
+
+/* Visible keyboard focus ring everywhere (accessibility) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 3px;
+}
+
+/* =========================================================================
+   Misc utility
+   ========================================================================= */
+
+.text-gradient-gold {
+  background: linear-gradient(90deg, var(--color-gold), #f0cf94);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.section-noise {
+  background-image: radial-gradient(circle at 1px 1px, rgba(43, 27, 18, 0.035) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+
+.divider-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+::selection {
+  background-color: var(--color-terracotta);
+  color: var(--color-cream);
+}
+
+/* Scrollbar (webkit) */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-terracotta);
+}
+
+/* Loading skeleton (used while images decode) */
+.img-skeleton {
+  background: linear-gradient(110deg, var(--color-cream-panel) 8%, #f5e4c8 18%, var(--color-cream-panel) 33%);
+  background-size: 200% 100%;
+  animation: skeleton-shine 1.6s linear infinite;
+}
+
+@keyframes skeleton-shine {
+  to { background-position-x: -200%; }
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
